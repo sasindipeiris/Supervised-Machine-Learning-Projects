@@ -35,28 +35,43 @@ Features: id, Podcast_Name, Episode_Title, Episode_Lenght_minutes, Genre, Host_P
 Target: Listening_Time, a continuous value indicating how long a user listened to an episode (in minutes)
 
 Initial exploration includes:
+
 1.Data loading using pandas, value counts for categorical features like Genre, and statistical summaries for continuous features such as Number_of_Ads.
+
 2.Number of Ads: Display a Boxplot, fill the missing values using mode, replace values greater than 3 with the mode, display the new Boxplot.
+
 3.Take the null count of all feature columns.
+
 4.Guest_Popularity_percentage: Display a statistiacl summary, take a count of values greater than 100, fill missing values using median. 
+
 5.Compute the listening efficiency using Listening_Time_minutes / Episode_Length_minutes, plot a graph showing **Average Listening Efficiency per Genre**.
-6.Genre: Plot a Genre Distribution graph.
+
+6.Genre: Plot a Genre Distribution graph
+
 7.Episode length: Get a statistical summary and the Boxplot, Fill the missing values with median, Replace outliers(value > 120) with median.
+
 8.Convert Episode_Length_minutes and Guest_Popularity_percentage into numeric.
+
 9.Add a column named **Completion_Ratio**. (Listening_Time_minutes / Episode_Length_minutes)
+
 10.Plot:
-        Number of episodes per genre
+        Number of episodes per genre.
+        
         Boxplot of completion ratio by genre.
+        
         Average Listening Efficiency by Episode Sentiment.
-        pivot_table of Listening Efficiency: Genre vs. Day of the week
-        barplot of Average Listening Efficiency by Day
+        
+        pivot_table of Listening Efficiency: Genre vs. Day of the week.
+        
+        barplot of Average Listening Efficiency by Day.
+        
         pivot table of Listening Efficiency: Genre vs. Sentiment.
 
 11.One-hot encode the categorical features: 'Genre', 'Publication_Day', 'Publication_Time', and 'Episode_Sentiment.
-12.Standardize the numerical columns :'Episode_Length_minutes', 'Host_Popularity_percentage','Guest_Popularity_percentage','Number_of_Ads','Listening_Efficiency','Completion_Ratio'
+
+12.Standardize the numerical columns:'Episode_Length_minutes','Host_Popularity_percentage','Guest_Popularity_percentage','Number_of_Ads','Listening_Efficiency','Completion_Ratio'
 
 # Models used
-
 
 
 | Model                     | Key Parameters                                                                 | RMSE     |
@@ -95,6 +110,7 @@ Setting max_depth=5 is a regularization technique, limiting the complexity of ea
 Smaller depth ensures better generalization by preventing each boosting step from fitting noise or overly specific patterns.
 
 **Conclusion**
+
 The difference in max_depth settings reflects the different learning philosophies:
 
 Random Forest relies on deep, uncorrelated trees and uses bagging to control overfitting.
@@ -160,7 +176,7 @@ Created a submission file containing:id, Predicted_Listening_Time_minutes
 
 Saved the output as submission.csv.
 
-**Reasoning for final model selection**
+# Reasoning for final model selection 
 
 The **Random Forest Regressor** was used in this project for several well-grounded reasons based on its strengths and how they align with the dataset and prediction task:
 
@@ -180,7 +196,7 @@ The **Random Forest Regressor** was used in this project for several well-ground
 
 Overall, Random Forest was chosen because it offered a strong balance of predictive power, interpretability, and reliability for the regression task at hand.
 
-Random Forest outperformed the Stacked Regressor because:
+# Random Forest outperformed the Stacked Regressor because:
 
 **It was already a strong standalone learner for this dataset.Random Forest is a strong learner that can handle both linear and nonlinear relationships, interactions between variables, and feature importance automatically. If the patterns in your dataset are:**
 
