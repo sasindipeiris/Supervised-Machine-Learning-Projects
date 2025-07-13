@@ -55,6 +55,7 @@ Initial exploration includes:
 9.Add a column named **Completion_Ratio**. (Listening_Time_minutes / Episode_Length_minutes)
 
 10.Plot:
+        
         Number of episodes per genre.
         
         Boxplot of completion ratio by genre.
@@ -67,9 +68,13 @@ Initial exploration includes:
         
         pivot table of Listening Efficiency: Genre vs. Sentiment.
 
-11.One-hot encode the categorical features: 'Genre', 'Publication_Day', 'Publication_Time', and 'Episode_Sentiment.
+11.One-hot encode the categorical features:
 
-12.Standardize the numerical columns:'Episode_Length_minutes','Host_Popularity_percentage','Guest_Popularity_percentage','Number_of_Ads','Listening_Efficiency','Completion_Ratio'
+        'Genre', 'Publication_Day', 'Publication_Time', and 'Episode_Sentiment.
+
+12.Standardize the numerical columns:
+
+        'Episode_Length_minutes','Host_Popularity_percentage','Guest_Popularity_percentage','Number_of_Ads','Listening_Efficiency','Completion_Ratio'
 
 # Models used
 
@@ -87,9 +92,7 @@ Boosting models like Gradient Boosting, XGBoost, and LightGBM underperformed rel
 
 # Reasoning behind parameters
 
-**1.Random Forest (max_depth=None)**
-
-Why no depth limit?
+**1.Random Forest (max_depth=None)** (Why no depth limit?)
 
 Random Forest is an ensemble of many deep, fully-grown trees, each trained on a random subset of data and features.
 
@@ -97,9 +100,7 @@ The goal is to let each tree explore the data thoroughly, even if it overfits it
 
 Hence, max_depth=None is often safe, and even beneficial, because variance is controlled through bagging and randomness.
 
-**2.Boosting Models(max_depth=5)**
-
-Why limit tree depth here?
+**2.Boosting Models(max_depth=5)** (Why limit tree depth here?)
 
 Boosting models like Gradient Boosting, XGBoost, and LightGBM build trees sequentially, where each tree tries to correct the errors of the previous one.
 
@@ -113,11 +114,10 @@ Smaller depth ensures better generalization by preventing each boosting step fro
 
 The difference in max_depth settings reflects the different learning philosophies:
 
-Random Forest relies on deep, uncorrelated trees and uses bagging to control overfitting.
-
-Boosting models use many shallow, sequential trees and rely on iterative refinement. Shallow trees with depth=5 ensure they remain weak learners, which is critical for boosting to work effectively.
-
-
+        1.Random Forest relies on deep, uncorrelated trees and uses bagging to control overfitting.
+        
+        2.Boosting models use many shallow, sequential trees and rely on iterative refinement. Shallow trees with depth=5 ensure they remain weak learners, which           is critical for boosting to work effectively.
+        
 # Feature importance
 
 A bar chart named  **top 20 most important features** in predicting podcast listening time according to the XGBoost model was plotted. Feature importance here reflects how frequently and effectively a feature is used by the model's decision trees to split data and reduce prediction error. The most dominant feature was `Episode_Length_minutes`, which makes intuitive sense—longer episodes provide more opportunity for longer listening times. `Completion_Ratio` and `Listening_Efficiency` follow as the next most informative features, both directly tied to user engagement behaviors. Other features, like `Genre_Comedy`, `Publication_Day_Thursday`, and sentiment-related indicators (e.g., `Episode_Sentiment_Neutral`) contribute smaller, but still meaningful, predictive power. This plot helps highlight which variables the model prioritizes, guiding future efforts in feature engineering and data collection.
@@ -134,6 +134,7 @@ A bar chart named  **top 20 most important features** in predicting podcast list
 | **Meta-Model** | Linear Regression              | Used as the final estimator in the stacking ensemble                          |
 
 Final Stacking Regressor Performance:
+
 - **Validation RMSE**: `0.3536`
 
  # Testing
@@ -212,10 +213,10 @@ then Random Forest alone may already produce near-optimal predictions. In such c
 
 Stacking Complexity Can Backfire on Small or Clean DatasetsStacking introduces another layer of modeling — a meta-model that learns from the outputs of base models. This adds flexibility, but also:
 
-1.Increases the risk of overfitting, especially if the dataset is small or the models aren't diverse.
-
-2.Requires careful calibration of meta-model inputs and cross-validation.
-If the data isn’t large or complex enough, stacking may just reproduce the predictions of the strongest base model — and worse, may slightly degrade them.
+        1.Increases the risk of overfitting, especially if the dataset is small or the models aren't diverse.
+        
+        2.Requires careful calibration of meta-model inputs and cross-validation.
+        If the data isn’t large or complex enough, stacking may just reproduce the predictions of the strongest base model — and worse, may slightly degrade them.
 
 
 The base models were not sufficiently diverse.
