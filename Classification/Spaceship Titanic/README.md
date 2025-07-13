@@ -72,7 +72,7 @@ TF-DF models are particularly well-suited for tabular data and require less prep
 These two sets of evaluation metrics compare the **performance of your trained model** versus a **default (baseline) model**. Here's a breakdown of what each one means:
 
 
-#**Trained Model Performance**
+**Trained Model Performance**
 
 These values are based on predictions made by your **trained decision forest model**:
 
