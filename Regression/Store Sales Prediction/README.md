@@ -42,32 +42,36 @@ The basic EDA steps include:
 3. Plot:
 
   Distribution of Sales
+  
   Total sales aggregated by date
+  
   Distribution of Onpromotion Counts
+  
   Distribution of Transactions
+  
   Total Sales by Store
+  
   Sales Distribution by Product Family
+  
   Average Sales by Product Family
+  
   Oil Prices Over Time
+  
   Total Sales on Holiday vs Non-Holiday Days
+  
   Average Sales on Holiday vs Non-Holiday Days
 
 # Feature Engineering
 
 1. Combine train and test for consistent feature engineering. (Create a dummy sales column in test.)
 
-2. Merge External Data:
-   
-  Stores Data
-  Oil Data
-  Transaction Data
-  Holidays Data(Remove any existing "is_holiday" column before merging holidays to avoid duplicates)
+2. Merge External Data:Stores Data, Oil Data, Transaction Data, Holidays Data(Remove any existing "is_holiday" column before merging holidays to avoid duplicates)
 
-3.Create lag features for sales within each store and product family group.
+3. Create lag features for sales within each store and product family group.
 
-4.Create a 7-day rolling average of past sales.
+4. Create a 7-day rolling average of past sales.
 
-5.Additional Feature: Ratio of onpromotion items to transaction.
+5. Additional Feature: Ratio of onpromotion items to transaction.
 
 # Data Preprocessing
 
@@ -94,7 +98,6 @@ The model was trained using the Root Mean Squared Logarithmic Error (RMSLE), whi
   It is ideal for skewed data where large targets are common but the model should still treat relative errors fairly.
   
   To prevent invalid log values, all predictions are passed through np.maximum(0, preds) to ensure non-negativity.
-  
   
   
 **2. Hyperparameters used:**
@@ -128,9 +131,9 @@ The LightGBM model was trained with early stopping for up to 1000 boosting round
 
 Final scores were:
 
-  Training RMSLE: 0.7982
-  
-  Validation RMSLE: 0.5748
+   Training RMSLE: 0.7982
+   
+   Validation RMSLE: 0.5748
 
 This gap suggests the model fits training data reasonably well while still generalizing effectively to the validation set, with no strong indication of overfitting.
 
@@ -146,11 +149,11 @@ This score measures how well the model performs on unseen data — i.e., the val
 
 The difference between training and validation RMSLE (approximately 0.22) is relatively small, which is a positive indicator:
 
-  The model did not overfit drastically to the training data.
+  1. The model did not overfit drastically to the training data.
   
-  It generalizes well to unseen data, which is crucial for real-world forecasting tasks.
+  2. It generalizes well to unseen data, which is crucial for real-world forecasting tasks.
   
-  The slight gap is expected in any supervised learning model and indicates a good trade-off between bias and variance.
+  3. The slight gap is expected in any supervised learning model and indicates a good trade-off between bias and variance.
 
 Overall, the training and evaluation outcomes suggest that the model is both accurate and robust, making it a strong candidate for forecasting store sales in a time series setting. Further tuning (e.g., feature selection, deeper cross-validation, hyperparameter optimization) could still be explored to reduce the validation error even further.
 
