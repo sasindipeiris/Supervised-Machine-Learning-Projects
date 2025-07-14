@@ -54,9 +54,7 @@ For each fold:
 
 2. To augment the training data, the original dataset (which likely represents high-quality or clean data) was concatenated with the current fold's training set.
 
-3. The target column (Fertilizer Name) was separated and label-encoded, while all other features were explicitly converted to categorical types. This is
-
-   important because XGBoost now supports native categorical handling when enable_categorical=True.
+3. The target column (Fertilizer Name) was separated and label-encoded, while all other features were explicitly converted to categorical types. This is important because XGBoost now supports native categorical handling when enable_categorical=True.
 
 **Model Configuration**
 
@@ -78,18 +76,13 @@ The model is built using XGBClassifier with the following hyperparameters:
 | `tree_method`        | `'hist'`           | Efficient histogram-based training algorithm.                                       |
 | `device`             | `'cuda'`           | Model is trained using GPU acceleration (if available).                             |
 
-Training was performed using early stopping, with a patience of 100 rounds. This ensures that training halts once the validation performance stops improving,
-
-preventing overfitting and saving time.
+Training was performed using early stopping, with a patience of 100 rounds. This ensures that training halts once the validation performance stops improving, preventing overfitting and saving time.
 
 **Evaluation Metrics**
 
 **1.Macro F1-Score:** Measures the harmonic mean of precision and recall across all classes equally. Suitable for imbalanced class distributions.
 
-**2.MAP@3 (Mean Average Precision at top 3):** Reflects the model’s ability to include the correct class within its top-3 predictions. This is particularly 
-
-useful when partial correctness is valuable in recommendation scenarios.
-
+**2.MAP@3 (Mean Average Precision at top 3):** Reflects the model’s ability to include the correct class within its top-3 predictions. This is particularly useful when partial correctness is valuable in recommendation scenarios.
 
 **Loss curves**
 
