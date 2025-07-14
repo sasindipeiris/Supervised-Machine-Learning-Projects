@@ -54,7 +54,9 @@ For each fold:
 
 2. To augment the training data, the original dataset (which likely represents high-quality or clean data) was concatenated with the current fold's training set.
 
-3. The target column (Fertilizer Name) was separated and label-encoded, while all other features were explicitly converted to categorical types. This is important because XGBoost now supports native categorical handling when enable_categorical=True.
+3. The target column (Fertilizer Name) was separated and label-encoded, while all other features were explicitly converted to categorical types. This is
+
+   important because XGBoost now supports native categorical handling when enable_categorical=True.
 
 **Model Configuration**
 
@@ -76,13 +78,18 @@ The model is built using XGBClassifier with the following hyperparameters:
 | `tree_method`        | `'hist'`           | Efficient histogram-based training algorithm.                                       |
 | `device`             | `'cuda'`           | Model is trained using GPU acceleration (if available).                             |
 
-Training was performed using early stopping, with a patience of 100 rounds. This ensures that training halts once the validation performance stops improving, preventing overfitting and saving time.
+Training was performed using early stopping, with a patience of 100 rounds. This ensures that training halts once the validation performance stops improving,
+
+preventing overfitting and saving time.
 
 **Evaluation Metrics**
 
 **1.Macro F1-Score:** Measures the harmonic mean of precision and recall across all classes equally. Suitable for imbalanced class distributions.
 
-**2.MAP@3 (Mean Average Precision at top 3):** Reflects the model’s ability to include the correct class within its top-3 predictions. This is particularly useful when partial correctness is valuable in recommendation scenarios.
+**2.MAP@3 (Mean Average Precision at top 3):** Reflects the model’s ability to include the correct class within its top-3 predictions. This is particularly 
+
+useful when partial correctness is valuable in recommendation scenarios.
+
 
 **Loss curves**
 
@@ -98,25 +105,7 @@ Training was performed using early stopping, with a patience of 100 rounds. This
 
 **Confusion Matrix** :While the model exhibits decent discriminative ability, especially for certain fertilizers (like "14-35-14" and "17-17-17"), the relatively low diagonal scores and off-diagonal confusion suggest that the feature space is not highly separable across classes. Enhancing feature engineering (e.g., incorporating crop-specific or environmental features) or applying more advanced ensemble methods might further boost performance. Additionally, class-wise data balancing and domain-driven feature enrichment could help reduce misclassification.
 
-**Classification Report**
-
-An accuracy of 24.2% in a 7-class classification problem is only marginally better than random guessing (which would yield ~14.3%).
-
-Indicates the model has learned some useful patterns but lacks strong discriminative power.
-
-The support is relatively balanced across classes (~18k to ~23k per class), so poor performance is not due to class imbalance.
-
-This points to limitations in feature quality, model complexity, or possibly noise in labels or input data.
-
-While the model performs slightly better on certain classes (especially class 2), overall results are modest. With all metrics below 0.27, there's clear room for improvement through:
-
-Enhanced feature engineering,
-
-Incorporating domain-specific knowledge, or
-
-Using more powerful ensemble or transformer-based architectures.
-
-Better separation in the feature space or deeper models with regularization may also help push the performance upward.
+**Classification Report**:An accuracy of 24.2% in a 7-class classification problem is only marginally better than random guessing (which would yield ~14.3%).Indicates the model has learned some useful patterns but lacks strong discriminative power.The support is relatively balanced across classes (~18k to ~23k per class), so poor performance is not due to class imbalance.This points to limitations in feature quality, model complexity, or possibly noise in labels or input data.
 
 **Feature Importance**:Since fertilizers are mostly defined by their composition, it is logical to see that soil nutrients play a big role in product selection. They need to complement each other.
 
@@ -132,20 +121,20 @@ Here are several **practical suggestions** to improve the model's performance fo
 1. **Feature Engineering Improvements**
 
 * **Domain-specific ratios**: Derive meaningful features like N-P-K ratios, or ratios between soil type, crop, and moisture.
- 
+   
 * **Interaction terms**: Create new features based on interactions (e.g., `soil_type * crop`, or `crop + temperature`).
-  
+    
 * **Dimensionality reduction**: Use PCA or autoencoders to reduce noise and highlight informative signals.
 
 2. **Data Preprocessing Enhancements**
 
 * **Balance the dataset**: Use techniques like **SMOTE**, **class-weighting**, or **undersampling** to address class imbalance (as seen in the confusion matrix).
- 
+   
 * **Outlier detection**: Use clustering or isolation forests to remove or smooth unusual input records.
- 
+   
 * **Categorical encoding**: Try **target encoding** or **ordinal encoding** instead of treating all variables as `category`.
 
- 3. **Modeling Strategies**
+3. **Modeling Strategies**
 
 * **Ensemble learning**: Combine XGBoost with **LightGBM**, **CatBoost**, and even **neural networks** via stacking or voting to capture diverse patterns.
   
@@ -167,13 +156,13 @@ Here are several **practical suggestions** to improve the model's performance fo
  
 * Optimize for **MAP\@3** or **Top-K accuracy** directly if it's more important than Top-1 accuracy in your application.
 
- 6. **Deep Learning Alternatives**
+6. **Deep Learning Alternatives**
 
 * Experiment with **TabNet**, **TabTransformer**, or **Wide & Deep Networks** that can handle tabular data effectively while modeling interactions.
   
 * Try **autoML frameworks** like AutoGluon, H2O.ai, or TPOT which explore a large space of models and preprocessing steps automatically.
 
- 7. **Incorporate External Data**
+7. **Incorporate External Data**
 
 * Add **weather data**, **seasonal patterns**, or **geographical features** if available.
   
