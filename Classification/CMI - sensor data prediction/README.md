@@ -174,11 +174,11 @@ Classification Report on Test Set (LSTM):
 
       Hand at target location       0.02      1.00      0.03         7
       
-   Moves hand to target location     0.00      0.00      0.00       431
+      Moves hand to target location     0.00      0.00      0.00       431
   
             Performs gesture        0.00      0.00      0.00         3
             
- Relaxes and moves hand to target    0.00      0.00      0.00         5
+       Relaxes and moves hand to target    0.00      0.00      0.00         5
 
                       accuracy                           0.02       446
                       
@@ -196,30 +196,16 @@ Classification Report on Test Set (LSTM):
 # Possible resons behind failure
 
 The extremely low accuracy (0.02 or 2%) in the LSTM model suggests that it struggled significantly to generalize meaningful patterns from the training data to
-
 the test set. One of the most likely reasons is severe class imbalance, where one class (e.g., "Moves hand to target location") dominates the dataset with 
-
 hundreds of examples, while other classes like "Hand at target location" or "Performs gesture" have very few. In such cases, models often become biased toward 
-
 the majority class, failing to correctly identify rare behaviors, which leads to poor performance across minority classes.
 
- 
-Another possible reason is insufficient or noisy feature representation. If the statistical features extracted from sensor data windows (e.g., mean, std,
-
-skewness, etc.) do not adequately capture the behavioral patterns distinguishing BFRB from non-BFRB gestures, the LSTM model may struggle to learn meaningful 
-
-temporal dependencies. Moreover, if the input data (windowed time series) is not standardized or has missing/inconsistent signals, this can negatively impact the 
-
+Another possible reason is insufficient or noisy feature representation. If the statistical features extracted from sensor data windows (e.g., mean, std,skewness, etc.) do not adequately capture the behavioral patterns distinguishing BFRB from non-BFRB gestures, the LSTM model may struggle to learn meaningful temporal dependencies. Moreover, if the input data (windowed time series) is not standardized or has missing/inconsistent signals, this can negatively impact the 
 model's ability to learn.
 
 
 Lastly, the LSTM model itself may not be optimally configured or trained. A single LSTM layer with fixed units and default hyperparameters (e.g., dropout,
-
-learning rate, number of epochs) might be insufficient for a complex, multi-class time series classification task. In particular, if the model was underfitting 
-
-(not learning enough from data) or overfitting (memorizing noise), it would lead to poor generalization on the test set. Improvements might require 
-
-hyperparameter tuning, feature selection, more balanced training data, or the addition of model complexity such as deeper layers or attention mechanisms.
+learning rate, number of epochs) might be insufficient for a complex, multi-class time series classification task. In particular, if the model was underfitting(not learning enough from data) or overfitting (memorizing noise), it would lead to poor generalization on the test set. Improvements might require hyperparameter tuning, feature selection, more balanced training data, or the addition of model complexity such as deeper layers or attention mechanisms.
 
    
 # Possible alternate solution
