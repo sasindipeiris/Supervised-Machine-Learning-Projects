@@ -174,11 +174,11 @@ Classification Report on Test Set (LSTM):
 
       Hand at target location       0.02      1.00      0.03         7
       
-      Moves hand to target location     0.00      0.00      0.00       431
+   Moves hand to target location     0.00      0.00      0.00       431
   
             Performs gesture        0.00      0.00      0.00         3
             
-       Relaxes and moves hand to target    0.00      0.00      0.00         5
+    Relaxes and moves hand to target    0.00      0.00      0.00         5
 
                       accuracy                           0.02       446
                       
