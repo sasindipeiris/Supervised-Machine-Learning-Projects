@@ -138,16 +138,27 @@ ToF Sensors: tof_distance, tof_signal_strength
 
   | **Component**          | **Parameters / Settings**                                                       | **Purpose / Description**                                                                                                         |
 | ---------------------- | ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+
 | **Model Type**         | `Sequential()`                                                                  | A linear stack of layers, ideal for feedforward architectures like LSTM.                                                          |
+
 | **LSTM Layer**         | `units=100`<br>`input_shape=(timesteps, input_features)`<br>`activation='relu'` | Adds a Long Short-Term Memory layer to capture temporal dependencies in sensor data. Relu activation aids in non-linear modeling. |
+
 | **Dropout Layer**      | `rate=0.2`                                                                      | Prevents overfitting by randomly setting 20% of the LSTM outputs to zero during training.                                         |
+
 | **Dense Output Layer** | `units=num_classes`<br>`activation='softmax'`                                   | Final classification layer. Outputs class probabilities using softmax activation.                                                 |
+
 | **Loss Function**      | `'categorical_crossentropy'`                                                    | Suitable for multi-class classification using one-hot encoded targets.                                                            |
+
 | **Optimizer**          | `'adam'`                                                                        | Adaptive Moment Estimation optimizer — effective and commonly used for deep learning.                                             |
+
 | **Evaluation Metric**  | `'accuracy'`                                                                    | Measures the percentage of correctly predicted labels.                                                                            |
+
 | **Epochs**             | `50`                                                                            | Number of passes over the training dataset.                                                                                       |
+
 | **Batch Size**         | `32`                                                                            | Number of samples per gradient update. Smaller batches lead to more frequent updates.                                             |
+
 | **Validation Split**   | `0.1`                                                                           | Uses 10% of training data for validation to monitor generalization performance.                                                   |
+
 | **Verbose**            | `1                                                                              | Enables real-time progress logging during training.                                                                               |
 
                                                                        
@@ -169,33 +180,59 @@ Classification Report on Test Set (LSTM):
                                 precision    recall  f1-score   support
 
       Hand at target location       0.02      1.00      0.03         7
+      
   Moves hand to target location     0.00      0.00      0.00       431
+  
             Performs gesture        0.00      0.00      0.00         3
-Relaxes and moves hand to target
-               location             0.00      0.00      0.00         5
+            
+Relaxes and moves hand to target    0.00      0.00      0.00         5
 
                       accuracy                           0.02       446
+                      
                      macro avg       0.00      0.25      0.01       446
+                     
                   weighted avg       0.00      0.02      0.00       446
 
 
 * **Accuracy** measures the overall proportion of correct predictions across all classes.
+  
 * **Macro average** computes the unweighted mean of precision, recall, or F1-score across all classes, treating each class equally regardless of its size.
+
 * **Weighted average** calculates the mean of precision, recall, or F1-score weighted by the number of true instances for each class, giving more influence to frequent classes.
 
 # Possible resons behind failure
 
-1. The extremely low accuracy (0.02 or 2%) in the LSTM model suggests that it struggled significantly to generalize meaningful patterns from the training data to the test set. One of the most likely reasons is severe class imbalance, where one class (e.g., "Moves hand to target location") dominates the dataset with hundreds of examples, while other classes like "Hand at target location" or "Performs gesture" have very few. In such cases, models often become biased toward the majority class, failing to correctly identify rare behaviors, which leads to poor performance across minority classes.
- 
-2. Another possible reason is insufficient or noisy feature representation. If the statistical features extracted from sensor data windows (e.g., mean, std, skewness, etc.) do not adequately capture the behavioral patterns distinguishing BFRB from non-BFRB gestures, the LSTM model may struggle to learn meaningful temporal dependencies. Moreover, if the input data (windowed time series) is not standardized or has missing/inconsistent signals, this can negatively impact the model's ability to learn.
+1. The extremely low accuracy (0.02 or 2%) in the LSTM model suggests that it struggled significantly to generalize meaningful patterns from the training data to
 
-3. Lastly, the LSTM model itself may not be optimally configured or trained. A single LSTM layer with fixed units and default hyperparameters (e.g., dropout, learning rate, number of epochs) might be insufficient for a complex, multi-class time series classification task. In particular, if the model was underfitting (not learning enough from data) or overfitting (memorizing noise), it would lead to poor generalization on the test set. Improvements might require hyperparameter tuning, feature selection, more balanced training data, or the addition of model complexity such as deeper layers or attention mechanisms.
+the test set. One of the most likely reasons is severe class imbalance, where one class (e.g., "Moves hand to target location") dominates the dataset with 
+
+hundreds of examples, while other classes like "Hand at target location" or "Performs gesture" have very few. In such cases, models often become biased toward 
+
+the majority class, failing to correctly identify rare behaviors, which leads to poor performance across minority classes.
+ 
+3. Another possible reason is insufficient or noisy feature representation. If the statistical features extracted from sensor data windows (e.g., mean, std,
+
+skewness, etc.) do not adequately capture the behavioral patterns distinguishing BFRB from non-BFRB gestures, the LSTM model may struggle to learn meaningful 
+
+temporal dependencies. Moreover, if the input data (windowed time series) is not standardized or has missing/inconsistent signals, this can negatively impact the 
+
+model's ability to learn.
+
+5. Lastly, the LSTM model itself may not be optimally configured or trained. A single LSTM layer with fixed units and default hyperparameters (e.g., dropout,
+
+learning rate, number of epochs) might be insufficient for a complex, multi-class time series classification task. In particular, if the model was underfitting 
+
+(not learning enough from data) or overfitting (memorizing noise), it would lead to poor generalization on the test set. Improvements might require 
+
+hyperparameter tuning, feature selection, more balanced training data, or the addition of model complexity such as deeper layers or attention mechanisms.
 
    
 # Possible alternate solution
 
 * If you have **rich engineered features**, start with **XGBoost** or **LightGBM**.
+  
 * If you want to stick with deep learning but avoid LSTM's issues, try **1D CNNs** or **CNN-LSTM hybrids**.
+  
 * If you have enough data and resources, explore **Transformers or TCNs**.
 
 
