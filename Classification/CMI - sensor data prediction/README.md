@@ -168,7 +168,7 @@ ToF Sensors: tof_distance, tof_signal_strength
 
 * **Weighted average** calculates the mean of precision, recall, or F1-score weighted by the number of true instances for each class, giving more influence to frequent classes.
 
-# Possible resons behind failure
+# Possible reasons behind failure
 
 The extremely low accuracy (0.02 or 2%) in the LSTM model suggests that it struggled significantly to generalize meaningful patterns from the training data to
 the test set. One of the most likely reasons is severe class imbalance, where one class (e.g., "Moves hand to target location") dominates the dataset with 
@@ -183,7 +183,7 @@ Lastly, the LSTM model itself may not be optimally configured or trained. A sing
 learning rate, number of epochs) might be insufficient for a complex, multi-class time series classification task. In particular, if the model was underfitting(not learning enough from data) or overfitting (memorizing noise), it would lead to poor generalization on the test set. Improvements might require hyperparameter tuning, feature selection, more balanced training data, or the addition of model complexity such as deeper layers or attention mechanisms.
 
    
-# Possible alternate solution
+# Possible alternate solutions
 
 * If you have **rich engineered features**, start with **XGBoost** or **LightGBM**.
   
