@@ -150,11 +150,6 @@ ToF Sensors: tof_distance, tof_signal_strength
 | **Validation Split**   | `0.1`                                                                            | Uses 10% of training data for validation to monitor generalization performance.                                                   |
 | **Verbose**            | `1`                                                                              | Enables real-time progress logging during training.                                                                               |
 
-
-
-
-
-                                                                       
 # Evaluation
 
 **Classification Report**:The classification_report from sklearn.metrics provides a detailed breakdown of a classification model's performance across each class. It includes key evaluation metrics that help you understand how well the model is predicting each class — not just overall accuracy.
@@ -165,26 +160,6 @@ ToF Sensors: tof_distance, tof_signal_strength
 | Recall     | Out of all actual instances of a class, how many were correctly predicted?       | Indicates how well the model captures all relevant cases (true positives). High recall = few misses.  |
 | F1-score   | Harmonic mean of precision and recall. Balances the two in a single metric.      | Useful when you want a balance between precision and recall, especially in imbalanced datasets.       |
 | Support    | Number of actual occurrences of each class in the dataset.                       | Shows how many samples of each class were present in the test set — helps interpret other metrics.    |
-
-**Results**:
-
-Classification Report on Test Set (LSTM):
-
-                                precision    recall  f1-score   support
-
-      Hand at target location       0.02      1.00      0.03         7
-      
-   Moves hand to target location     0.00      0.00      0.00       431
-  
-            Performs gesture        0.00      0.00      0.00         3
-            
-    Relaxes and moves hand to target    0.00      0.00      0.00         5
-
-                      accuracy                           0.02       446
-                      
-                     macro avg       0.00      0.25      0.01       446
-                     
-                  weighted avg       0.00      0.02      0.00       446
 
 
 * **Accuracy** measures the overall proportion of correct predictions across all classes.
