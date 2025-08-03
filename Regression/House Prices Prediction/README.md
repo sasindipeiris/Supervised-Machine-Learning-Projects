@@ -17,7 +17,7 @@ This project provides a complete end-to-end pipeline for predicting house sale p
 
 # Dataset loading and preprocessing
 
-he training dataset is loaded from a CSV file containing features and the target variable SalePrice.
+The training dataset is loaded from a CSV file containing features and the target variable SalePrice.
 
 Basic inspection (.head(), .info()) is used to understand the structure and shape of the data.
 
@@ -62,6 +62,7 @@ NUM_AS_ROOT: how often a feature is used at the root of a tree,
 SUM_SCORE: the cumulative gain across all splits involving the feature.
 
 These scores are used to determine which features have the most influence on the model’s predictions. A bar plot is created to display the top features by their root usage, giving insight into which factors most significantly affect house prices. This is not just useful for model understanding, but also for feature selection in future experiments.
+
 
 
 
