@@ -116,7 +116,7 @@ The difference in max_depth settings reflects the different learning philosophie
 
         1.Random Forest relies on deep, uncorrelated trees and uses bagging to control overfitting.
         
-        2.Boosting models use many shallow, sequential trees and rely on iterative refinement. Shallow trees with depth=5 ensure they remain weak learners, which           is critical for boosting to work effectively.
+        2.Boosting models use many shallow, sequential trees and rely on iterative refinement. Shallow trees with depth=5 ensure they remain weak learners, which is critical for boosting to work effectively.
         
 # Feature importance
 
@@ -251,6 +251,7 @@ In short, sometimes simpler is better, and Random Forest gave the best balance o
 
 
   
+
 
 
 
